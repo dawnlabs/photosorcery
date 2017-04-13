@@ -15,41 +15,14 @@ func main() {
 
 	switch command := os.Args[1]; command {
 	case "merge":
-		files := formatFiles(os.Args[2:])
-		merge(files, "./test.pdf")
+		files, outputPath := parseMergeInput(os.Args[2:])
+		merge(files, outputPath)
 	case "convert":
 		files, outputDir, fileType := parseConvertInput(os.Args[2:])
 		convert(files, outputDir, fileType)
 	default:
 		logAndExit(errors.New("invalid command"))
 	}
-}
-
-func formatFiles(files []string) []string {
-	cleanedFiles := make([]string, len(files))
-
-	for index, file := range files {
-		if _, err := os.Stat(file); os.IsNotExist(err) {
-			logAndExit(errors.New("invalid file"))
-		}
-
-		absPath, err := filepath.Abs(file)
-		if err != nil {
-			logAndExit(errors.New("invalid file"))
-		}
-		fileStat, err := os.Stat(absPath)
-		if err != nil {
-			logAndExit(errors.New("error checking input file stats"))
-		}
-
-		if !fileStat.Mode().IsRegular() {
-			logAndExit(errors.New("input file is not a regular file"))
-		}
-
-		cleanedFiles[index] = absPath
-	}
-
-	return cleanedFiles
 }
 
 func parseConvertInput(args []string) ([]string, string, FileType) {
@@ -86,4 +59,51 @@ func parseConvertInput(args []string) ([]string, string, FileType) {
 	files := formatFiles(args[4:])
 
 	return files, outputPath, targetType
+}
+
+func parseMergeInput(args []string) ([]string, string) {
+	fset := flag.NewFlagSet("fset", flag.ContinueOnError)
+	outPtr := fset.String("out", "", "Directory to write to")
+
+	fset.Parse(args)
+
+	if *outPtr == "" {
+		logAndExit(errors.New("no output dir specified"))
+	}
+
+	outputPath, err := filepath.Abs(*outPtr)
+	if err != nil {
+		logAndExit(errors.New("invalid file path"))
+	}
+
+	files := formatFiles(args[2:])
+
+	return files, outputPath
+}
+
+func formatFiles(args []string) []string {
+	cleanedFiles := make([]string, len(args))
+
+	for index, file := range args {
+		if _, err := os.Stat(file); os.IsNotExist(err) {
+			logAndExit(errors.New("invalid file"))
+		}
+
+		absPath, err := filepath.Abs(file)
+		if err != nil {
+			logAndExit(errors.New("invalid file"))
+		}
+		fileStat, err := os.Stat(absPath)
+		if err != nil {
+			logAndExit(errors.New("error checking input file stats"))
+		}
+
+		if !fileStat.Mode().IsRegular() {
+			logAndExit(errors.New("input file is not a regular file"))
+		}
+
+		cleanedFiles[index] = absPath
+	}
+
+	return cleanedFiles
 }
