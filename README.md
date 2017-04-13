@@ -2,7 +2,7 @@
 
 # photosorcery
 
-Small library for converting between image types and merging images into PDFs
+Simple CLI for converting between image types and merging images into PDFs
 
 ## API
 
