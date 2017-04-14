@@ -2,9 +2,11 @@
 
 # photosorcery
 
-Simple CLI for converting between image types and merging images into PDFs.
+Small CLI for converting between image types and merging images into PDFs.
 
 Converts images concurrently for added speed.
+
+Developed for use with [Alchemy](https://github.com/dawnlabs/alchemy)
 
 ## API
 
