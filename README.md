@@ -8,8 +8,20 @@ Simple CLI for converting between image types and merging images into PDFs
 
 ### Merge
 
-`photosorcery merge [...imagePaths]`
+`photosorcery merge -out [outputPath] [...imagePaths]`
 
 ### Convert
 
 `photosorcery convert -type [imageType] -out [outputDirectory] [...imagePaths]`
+
+## File Types Supported
+
+### Convert
+
+  To and from: `jpg`, `png`, `gif`, `bmp`, `tiff`
+  
+### Merge 
+
+  To: `pdf`
+  
+  From: `jpg`, `png`, `gif`
