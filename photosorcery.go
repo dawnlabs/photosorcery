@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"flag"
-	"fmt"
 	"os"
 	"path/filepath"
 )
@@ -29,8 +28,6 @@ func parseConvertInput(args []string) ([]string, string, FileType) {
 	fset := flag.NewFlagSet("fset", flag.ContinueOnError)
 	typePtr := fset.String("type", "", "Target image type")
 	outPtr := fset.String("out", "", "Directory to write to")
-
-	fmt.Printf("args %v\n", args)
 
 	fset.Parse(args)
 
