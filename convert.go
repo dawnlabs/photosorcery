@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"sync"
+	"strings"
 
 	"golang.org/x/image/bmp"
 	"golang.org/x/image/tiff"
@@ -75,7 +76,7 @@ func convertFile(wg *sync.WaitGroup, currPath string, outputDir string, fileType
 	// call done when finished
 	defer wg.Done()
 
-	ext := filepath.Ext(currPath)
+	ext := strings.ToLower(filepath.Ext(currPath))
 	newExt := getFileExtension(fileType)
 
 	_, filename := filepath.Split(currPath)
