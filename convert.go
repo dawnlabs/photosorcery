@@ -13,6 +13,7 @@ import (
 
 	"golang.org/x/image/bmp"
 	"golang.org/x/image/tiff"
+  "github.com/chai2010/webp"
 )
 
 type FileType int
@@ -21,6 +22,7 @@ const (
 	PNG FileType = iota
 	JPG
 	GIF
+  WEBP
 	BMP
 	TIFF
 	ERR
@@ -38,6 +40,8 @@ func getFileType(input string) FileType {
 		return GIF
 	case "bmp":
 		return BMP
+	case "webp":
+		return WEBP
 	case "tiff":
 		return TIFF
 	default:
@@ -55,6 +59,8 @@ func getFileExtension(input FileType) string {
 		return "gif"
 	case BMP:
 		return "bmp"
+	case WEBP:
+		return "webp"
 	case TIFF:
 		return "tiff"
 	default:
@@ -97,6 +103,7 @@ func convertFile(wg *sync.WaitGroup, currPath string, outputDir string, fileType
 	}
 	defer file.Close()
 
+
 	outFile := openOrCreate(newFilePath)
 	defer outFile.Close()
 
@@ -117,6 +124,10 @@ func convertFile(wg *sync.WaitGroup, currPath string, outputDir string, fileType
 		err := png.Encode(outFile, imageData)
 		if err != nil {
 			logAndExit(err)
+		}
+	case WEBP:
+		if err := webp.Encode(outFile, imageData, nil); err != nil {
+			logAndExit(errors.New("error converting to webp"))
 		}
 	case GIF:
 		err := gif.Encode(outFile, imageData, nil)

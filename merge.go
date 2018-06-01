@@ -1,9 +1,9 @@
 package main
 
 import (
-        "os"
-        "image"
-        "github.com/jung-kurt/gofpdf"
+  "os"
+  "image"
+  "github.com/jung-kurt/gofpdf"
 )
 
 func merge (files []string, outputPath string) {
@@ -27,7 +27,7 @@ func merge (files []string, outputPath string) {
 }
 
 func getImageDimension(imagePath string) (float64, float64) {
-        file, err := os.Open(imagePath)
+  file, err := os.Open(imagePath)
         if err != nil {
                 logAndExit(err)
         }
