@@ -22,5 +22,5 @@ verify_docker_running:
 	docker info > /dev/null
 
 clean:
-	rm photosorcery
+	rm -f photosorcery
 	rm -f *amd64*
