@@ -32,14 +32,14 @@ Developed for use with [Alchemy](https://github.com/dawnlabs/alchemy)
 
 ## Development
 
-Photosorcery has been created to be used with an electron application called [Alchemy](https://github.com/dawnlabs/alchemy) which is built to run on Linux, Windows as well as MacOS. This requires Photosorcery having to be built for each of those architectures.
+Photosorcery has been created to be used with an electron application called [Alchemy](https://github.com/dawnlabs/alchemy) which is built to run on Linux, Windows as well as MacOS. This requires Photosorcery having to be built for each of those platforms.
 
 Some of Photosorcery's dependencies require cross compilation which we achieve with the help of Docker and https://github.com/karalabe/xgo.
 
 When developing:
 
-* Clone this repository somewhere in your `$GOPATH`
 * Install [Docker](https://www.docker.com/community-edition#/download)
+* Clone this repository somewhere in your `$GOPATH`
 * Run `make` - which should install all required dependencies and build Photosorcery for each target; it will take a while the first time it is run
 
 ## Authors
